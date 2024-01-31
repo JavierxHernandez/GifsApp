@@ -1,4 +1,8 @@
 #sidebar {
   height: 100vh;
-  width: 250px;
+  width: 200px;/* Altura fija */
+  overflow-y: auto; /* Permite el desplazamiento vertical */
+  position: fixed; /* Posición fija */
+  top: 0; /* Alineado con la parte superior de la página */
+  /* Añade más estilos según sea necesario */
 }

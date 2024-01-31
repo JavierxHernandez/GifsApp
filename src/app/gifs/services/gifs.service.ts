@@ -12,6 +12,7 @@ export class GifsService {
   private _tagsHistory: string[] = [];
   private giphyApiKey: string = 'K8vZZg1PJA84rXUo16UclEtDrhocJBF0';
   private serviceUrl: string = 'https://api.giphy.com/v1/gifs';
+  private searchLimit: number = 8;
 
   constructor(private http: HttpClient) {
     this.loadLocalStorage('tags-history');
@@ -30,7 +31,7 @@ export class GifsService {
     }
 
     this._tagsHistory.unshift(tag);
-    this._tagsHistory = this._tagsHistory.splice(0, 10);
+    this._tagsHistory = this._tagsHistory.splice(0, this.searchLimit);
 
     this.saveLocalStorage('tags-history', JSON.stringify(this._tagsHistory))
   }
@@ -55,7 +56,7 @@ export class GifsService {
 
     const params = new HttpParams()
       .set('api_key', this.giphyApiKey)
-      .set('limit', 10)
+      .set('limit', this.searchLimit)
       .set('q', tag)
 
     this.http.get<SearchResponse>(`${this.serviceUrl}/search`, {params})
